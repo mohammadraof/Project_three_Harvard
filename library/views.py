@@ -1,20 +1,20 @@
 from django.shortcuts import render
-from .sample_data import books, members, borrowings
+from .sample_data import books, members
 
-# Create your views here.
+
 def home(request):
     return render(request, "library/home.html")
 
-# -----------------
-# BOOK LIST
-# -----------------
+
 def book_list(request):
     query = request.GET.get("q", "").strip().lower()
+
     filtered_books = books
 
     if query:
         filtered_books = [
-            book for book in books
+            book
+            for book in books
             if query in book["title"].lower()
             or query in book["author"].lower()
         ]
@@ -24,17 +24,13 @@ def book_list(request):
         "query": query,
     })
 
-# -----------------
-# MEMBER LIST
-# -----------------
+
 def member_list(request):
     return render(request, "library/member_list.html", {
         "members": members,
     })
 
-# -----------------
-# STATISTICS
-# -----------------
+
 def statistics(request):
     total_books = len(books)
     total_members = len(members)
