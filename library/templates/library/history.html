@@ -1,0 +1,53 @@
+{% extends "library/base.html" %}
+
+{% block content %}
+
+<h1>Borrowing History</h1>
+
+{% if member %}
+    <h2>Member: {{ member.name }}</h2>
+
+    {% if borrowings %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Book</th>
+                    <th>Borrowed At</th>
+                    <th>Returned At</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for borrowing in borrowings %}
+                    <tr>
+                        <td>
+                            {% for book in books %}
+                                {% if book.id == borrowing.book_id %}
+                                    {{ book.title }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+
+                        <td>{{ borrowing.borrowed_at }}</td>
+
+                        <td>
+                            {% if borrowing.returned_at %}
+                                {{ borrowing.returned_at }}
+                            {% else %}
+                                Not returned
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <p>This member has no borrowing history.</p>
+    {% endif %}
+
+{% else %}
+    <p>Member not found.</p>
+{% endif %}
+
+{% endblock %}

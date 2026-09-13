@@ -61,6 +61,30 @@ def return_book(request, book_id):
     
     return redirect("book_list")
 
+
+# ------------------
+# HISTORY
+# ------------------
+
+def history(request, member_id):
+    member = find_member(member_id)
+
+    member_borrowings = []
+
+    for borrowing in borrowings:
+        if borrowing["member_id"] == member_id:
+            member_borrowings.append(borrowing)
+
+    return render(
+        request,
+        "library/history.html",
+        {
+            "member": member,
+            "borrowings": member_borrowings,
+            "books": books,
+        },
+    )
+
 # ------------------
 # HOME
 # ------------------
