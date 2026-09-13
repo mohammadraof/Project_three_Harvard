@@ -148,14 +148,19 @@ def member_list(request):
 
 def statistics(request):
     total_books = len(books)
+    available_books = sum(1 for book in books if book["available"])
+    borrowed_books = total_books - available_books
     total_members = len(members)
-    available_books = len([
-        book for book in books
-        if book["available"]
-    ])
+    total_borrowings = len(borrowings)
 
-    return render(request, "library/statistics.html", {
-        "total_books": total_books,
-        "total_members": total_members,
-        "available_books": available_books,
-    })
+    return render(
+        request,
+        "library/statistics.html",
+        {
+            "total_books": total_books,
+            "available_books": available_books,
+            "borrowed_books": borrowed_books,
+            "total_members": total_members,
+            "total_borrowings": total_borrowings,
+        },
+    )

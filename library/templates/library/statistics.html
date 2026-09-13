@@ -2,12 +2,31 @@
 
 {% block content %}
 
-    <h1>Library Statistics</h1>
+<h1>Library Statistics</h1>
 
-    <ul>
-        <li>Total books: {{ total_books }}</li>
-        <li>Total members: {{ total_members }}</li>
-        <li>Available books: {{ available_books }}</li>
-    </ul>
+<div>
+    <h2>Total Books</h2>
+    <p>{{ total_books }}</p>
+</div>
+
+<div>
+    <h2>Available Books</h2>
+    <p>{{ available_books }}</p>
+</div>
+
+<div>
+    <h2>Borrowed Books</h2>
+    <p>{{ borrowed_books }}</p>
+</div>
+
+<div>
+    <h2>Total Members</h2>
+    <p>{{ total_members }}</p>
+</div>
+
+<div>
+    <h2>Total Borrowings</h2>
+    <p>{{ total_borrowings }}</p>
+</div>
 
 {% endblock %}
