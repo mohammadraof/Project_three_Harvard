@@ -1,0 +1,23 @@
+{% extends "library/base.html" %}
+
+{% block content %}
+
+    <h1>Members</h1>
+
+    {% for member in members %}
+
+        <article>
+            <h2>{{ member.name }}</h2>
+            <p>Email: {{ member.email }}</p>
+            <p>Member ID: {{ member.id }}</p>
+        </article>
+
+        <hr>
+
+    {% empty %}
+
+        <p>No members found.</p>
+
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "library/base.html" %}
+
+{% block content %}
+
+    <h1>Welcome to Library Manager</h1>
+
+    <p>This is the home page of the library management system.</p>
+
+    <ul>
+        <li>
+            <a href="{% url 'book_list' %}">View Books</a>
+        </li>
+
+        <li>
+            <a href="{% url 'member_list' %}">View Members</a>
+        </li>
+
+        <li>
+            <a href="{% url 'statistics' %}">View Statistics</a>
+        </li>
+    </ul>
+
+{% endblock %}
