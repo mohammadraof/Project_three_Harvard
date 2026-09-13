@@ -2,34 +2,83 @@
 
 {% block content %}
 
-<h1>Books</h1>
+<div class="page-header">
+    <div>
+        <span class="page-badge">📚 Library</span>
+        <h1>Books Collection</h1>
+        <p>Browse the books available in the library.</p>
+    </div>
+</div>
+
+<div class="books-grid">
 
 {% for book in books %}
 
-    <article>
+<div class="book-card">
+
+    <div class="book-icon">
+        📖
+    </div>
+
+    <div class="book-info">
         <h2>{{ book.title }}</h2>
 
-        <p>{{ book.author }} — {{ book.year }}</p>
-
-        <p>
-            Available:
-            {{ book.available }}
+        <p class="book-author">
+            By {{ book.author }}
         </p>
 
         {% if book.available %}
-            <form method="post" action="{% url 'borrow_book' book.id 1 %}">
-                {% csrf_token %}
-                <button type="submit">Borrow</button>
-            </form>
+            <span class="status available">
+                Available
+            </span>
         {% else %}
-            <form method="post" action="{% url 'return_book' book.id %}">
+            <span class="status borrowed">
+                Borrowed
+            </span>
+        {% endif %}
+    </div>
+
+
+    <div class="book-action">
+
+        {% if book.available %}
+
+            <form method="post"
+                  action="{% url 'borrow_book' book.id 1 %}">
                 {% csrf_token %}
-                <button type="submit">Return</button>
+
+                <button type="submit" class="action-btn borrow-btn">
+                    Borrow Book
+                </button>
             </form>
+
+        {% else %}
+
+            <form method="post"
+                  action="{% url 'return_book' book.id %}">
+                {% csrf_token %}
+
+                <button type="submit" class="action-btn return-btn">
+                    Return Book
+                </button>
+            </form>
+
         {% endif %}
 
-    </article>
+    </div>
+
+</div>
+
+{% empty %}
+
+    <div class="empty-state">
+        <div>📚</div>
+        <h2>No books found</h2>
+        <p>There are currently no books in the library.</p>
+    </div>
 
 {% endfor %}
+
+</div>
 
 {% endblock %}

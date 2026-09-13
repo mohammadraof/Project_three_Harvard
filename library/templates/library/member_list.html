@@ -2,22 +2,47 @@
 
 {% block content %}
 
-    <h1>Members</h1>
+<div class="page-header">
+    <div>
+        <span class="page-badge">👥 Library Members</span>
+        <h1>Members</h1>
+        <p>View all registered members of the library.</p>
+    </div>
+</div>
 
-    {% for member in members %}
+<div class="members-grid">
 
-        <article>
-            <h2>{{ member.name }}</h2>
-            <p>Email: {{ member.email }}</p>
-            <p>Member ID: {{ member.id }}</p>
-        </article>
+{% for member in members %}
 
-        <hr>
+<div class="member-card">
 
-    {% empty %}
+    <div class="member-avatar">
+        {{ member.name|first|upper }}
+    </div>
 
-        <p>No members found.</p>
+    <div class="member-info">
+        <h2>{{ member.name }}</h2>
 
-    {% endfor %}
+        <p>Member ID: #{{ member.id }}</p>
+    </div>
+
+    <a href="{% url 'history' member.id %}"
+       class="history-btn">
+        View History
+    </a>
+
+</div>
+
+{% empty %}
+
+    <div class="empty-state">
+        <div>👥</div>
+        <h2>No members found</h2>
+        <p>There are currently no registered members.</p>
+    </div>
+
+{% endfor %}
+
+</div>
 
 {% endblock %}

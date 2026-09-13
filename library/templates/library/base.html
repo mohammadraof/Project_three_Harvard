@@ -1,33 +1,65 @@
+{% load static %}
+
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Library Manager</title>
+<title>Library Manager</title>
+
+<link rel="stylesheet" href="{% static 'library/css/style.css' %}">
+
 </head>
+
 <body>
 
-    <header>
-        <h1>Library Manager</h1>
+<header class="site-header">
 
-        <nav>
-            <a href="/">Home</a>
-            |
-            <a href="/books/">Books</a>
-            |
-            <a href="/members/">Members</a>
-            |
-            <a href="/statistics/">Statistics</a>
+    <div class="navbar">
+
+        <a href="{% url 'home' %}" class="logo">
+            📚 <span>Library</span>
+        </a>
+
+        <nav class="main-nav">
+
+            <a href="{% url 'home' %}">Home</a>
+
+            <a href="{% url 'book_list' %}">Books</a>
+
+            <a href="{% url 'member_list' %}">Members</a>
+
+            <a href="{% url 'statistics' %}">Statistics</a>
+
         </nav>
-    </header>
 
-    <hr>
+    </div>
 
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+</header>
+
+
+<main class="site-main">
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div>
+        <strong>📚 Library Manager</strong>
+        <p>Simple library management system built with Django.</p>
+    </div>
+
+    <p class="copyright">
+        © 2026 Library Manager
+    </p>
+
+</footer>
 
 </body>
 </html>

@@ -2,22 +2,60 @@
 
 {% block content %}
 
+<section class="hero">
+    <div class="hero-content">
+        <span class="hero-badge">📚 Library Management System</span>
+
     <h1>Welcome to Library Manager</h1>
 
-    <p>This is the home page of the library management system.</p>
+    <p>
+        Manage books, members, borrowing history and library statistics
+        in one simple place.
+    </p>
 
-    <ul>
-        <li>
-            <a href="{% url 'book_list' %}">View Books</a>
-        </li>
+    <div class="hero-buttons">
+        <a href="{% url 'book_list' %}" class="btn btn-primary">
+            View Books
+        </a>
 
-        <li>
-            <a href="{% url 'member_list' %}">View Members</a>
-        </li>
+        <a href="{% url 'member_list' %}" class="btn btn-secondary">
+            View Members
+        </a>
+    </div>
+</div>
 
-        <li>
-            <a href="{% url 'statistics' %}">View Statistics</a>
-        </li>
-    </ul>
+<div class="hero-icon">
+    📚
+</div>
+
+</section>
+
+<section class="quick-links">
+
+<h2>Quick Access</h2>
+
+<div class="quick-grid">
+
+    <a href="{% url 'book_list' %}" class="quick-card">
+        <div class="quick-icon">📖</div>
+        <h3>Books</h3>
+        <p>View and manage all library books.</p>
+    </a>
+
+    <a href="{% url 'member_list' %}" class="quick-card">
+        <div class="quick-icon">👥</div>
+        <h3>Members</h3>
+        <p>View all registered library members.</p>
+    </a>
+
+    <a href="{% url 'statistics' %}" class="quick-card">
+        <div class="quick-icon">📊</div>
+        <h3>Statistics</h3>
+        <p>Check the current library statistics.</p>
+    </a>
+
+</div>
+
+</section>
 
 {% endblock %}

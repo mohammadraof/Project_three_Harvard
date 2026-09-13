@@ -2,52 +2,129 @@
 
 {% block content %}
 
-<h1>Borrowing History</h1>
+<div class="page-header">
+    <div>
+        <span class="page-badge">📋 Borrowing Records</span>
+        <h1>Borrowing History</h1>
+
+    {% if member %}
+        <p>Borrowing history for {{ member.name }}.</p>
+    {% else %}
+        <p>Member information could not be found.</p>
+    {% endif %}
+</div>
+
+</div>
 
 {% if member %}
-    <h2>Member: {{ member.name }}</h2>
 
-    {% if borrowings %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Book</th>
-                    <th>Borrowed At</th>
-                    <th>Returned At</th>
-                </tr>
-            </thead>
+<div class="history-card">
 
-            <tbody>
-                {% for borrowing in borrowings %}
-                    <tr>
-                        <td>
-                            {% for book in books %}
-                                {% if book.id == borrowing.book_id %}
-                                    {{ book.title }}
-                                {% endif %}
-                            {% endfor %}
-                        </td>
+<div class="history-member">
+    <div class="member-avatar">
+        {{ member.name|first|upper }}
+    </div>
 
-                        <td>{{ borrowing.borrowed_at }}</td>
+    <div>
+        <h2>{{ member.name }}</h2>
+        <p>Member ID: #{{ member.id }}</p>
+    </div>
+</div>
 
-                        <td>
-                            {% if borrowing.returned_at %}
-                                {{ borrowing.returned_at }}
-                            {% else %}
-                                Not returned
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
 
-    {% else %}
-        <p>This member has no borrowing history.</p>
-    {% endif %}
+{% if borrowings %}
+
+<div class="history-table-wrapper">
+
+    <table class="history-table">
+
+        <thead>
+            <tr>
+                <th>Book</th>
+                <th>Borrowed At</th>
+                <th>Returned At</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for borrowing in borrowings %}
+
+            <tr>
+
+                <td class="history-book">
+
+                    {% for book in books %}
+
+                        {% if book.id == borrowing.book_id %}
+                            📖 {{ book.title }}
+                        {% endif %}
+
+                    {% endfor %}
+
+                </td>
+
+                <td>
+                    {{ borrowing.borrowed_at }}
+                </td>
+
+                <td>
+                    {% if borrowing.returned_at %}
+                        {{ borrowing.returned_at }}
+                    {% else %}
+                        —
+                    {% endif %}
+                </td>
+
+                <td>
+
+                    {% if borrowing.returned_at %}
+
+                        <span class="status returned">
+                            Returned
+                        </span>
+
+                    {% else %}
+
+                        <span class="status active">
+                            Active
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
 
 {% else %}
-    <p>Member not found.</p>
+
+    <div class="empty-history">
+        <div>📋</div>
+        <h2>No borrowing history</h2>
+        <p>This member has not borrowed any books yet.</p>
+    </div>
+
+{% endif %}
+
+</div>
+
+{% else %}
+
+<div class="empty-history">
+    <div>👤</div>
+    <h2>Member not found</h2>
+    <p>The requested member does not exist.</p>
+</div>
+
 {% endif %}
 
 {% endblock %}
