@@ -1,40 +1,35 @@
-<!-- Templates -->
 {% extends "library/base.html" %}
+
 {% block content %}
-    <h1>Books</h1>
-    <form method="get">
-        <input
-            type="text"
-            name="q"
-            value="{{ query }}"
-            placeholder="Search by title or author"
-        >
 
-        <select name="status">
-            <option value="">All books</option>
+<h1>Books</h1>
 
-            <option
-                value="available"
-                {% if status == "available" %}selected{% endif %}
-            >
-                Available
-            </option>
+{% for book in books %}
 
-            <option
-                value="borrowed"
-                {% if status == "borrowed" %}selected{% endif %}
-            >
-             Borrowed
-            </option>
-        </select>
-
-        <button type="submit">Search</button>
-    </form>
-    {% for book in books %}
     <article>
         <h2>{{ book.title }}</h2>
-        <p>{{ book.author }} _ {{ book.year}}</p>
-        <p>Available: {{ book.available }}</p>
+
+        <p>{{ book.author }} — {{ book.year }}</p>
+
+        <p>
+            Available:
+            {{ book.available }}
+        </p>
+
+        {% if book.available %}
+            <form method="post" action="{% url 'borrow_book' book.id 1 %}">
+                {% csrf_token %}
+                <button type="submit">Borrow</button>
+            </form>
+        {% else %}
+            <form method="post" action="{% url 'return_book' book.id %}">
+                {% csrf_token %}
+                <button type="submit">Return</button>
+            </form>
+        {% endif %}
+
     </article>
-  {% endfor %}
+
+{% endfor %}
+
 {% endblock %}
